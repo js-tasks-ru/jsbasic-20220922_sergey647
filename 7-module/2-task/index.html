@@ -17,10 +17,12 @@
 
     window.openModal = () => {
       let modal = new Modal();
-      modal.setTitle('Modal Titlelkjh');
+      modal.setTitle('Modal Title');
+
       modal.setBody(createElement('<div>Тело модального окна</div>'));
 
       modal.open();
+      console.log( document.querySelector(".modal__title") )
     }
   </script>
 
