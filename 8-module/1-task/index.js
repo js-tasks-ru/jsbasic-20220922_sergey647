@@ -37,22 +37,23 @@ export default class CartIcon {
     window.addEventListener('resize', () => this.updatePosition());
   }
 
-  updatePosition = () => {
-    let cartIcon = document.querySelector('.cart-icon');
+  updatePosition() {
+    let cartIcon = this.elem;//document.querySelector('.cart-icon');
     cartIcon.style.zIndex = '1000';
-    let c = cartIcon.getBoundingClientRect();
+    let cartTop = cartIcon.getBoundingClientRect().top;
     let leftIndent = Math.min(
-      document.querySelector('.container').getBoundingClientRect().right + 20,
+      this.elem.closest('.container').getBoundingClientRect().right + 20,
       document.documentElement.clientWidth - this.elem.offsetWidth - 10
     );
+    cartIcon.style.right = '10px';
     if(!this.isHidden(cartIcon)) {
-      if(c.top < 0) {
+      if(cartTop < 0) {
         if(cartIcon.style.position !== 'fixed') {cartIcon.style.position = 'fixed';}
-        if(window.pageYOffset > c.top) {
+        if(window.pageYOffset > cartTop) {
           cartIcon.style.left = leftIndent + 'px';
         }
       } else {
-        if(window.pageYOffset > c.top) {
+        if(window.pageYOffset > cartTop) {
           if(cartIcon.style.position === 'fixed') {
             cartIcon.style.left = leftIndent + 'px';
           }
@@ -63,16 +64,6 @@ export default class CartIcon {
           }
         }
       }
-    }
-
-    let isMobile = document.documentElement.clientWidth <= 767;
-    if (isMobile) {
-      Object.assign(this.elem.style, {
-        position: '',
-        top: '',
-        left: '',
-        zIndex: ''
-      });
     }
   }
 
