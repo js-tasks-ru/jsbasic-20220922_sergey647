@@ -14,7 +14,6 @@ export default class CartIcon {
   update(cart) {
     if (!cart.isEmpty()) {
       this.elem.classList.add('cart-icon_visible');
-
       this.elem.innerHTML = `
         <div class="cart-icon__inner">
           <span class="cart-icon__count">${cart.getTotalCount()}</span>
@@ -39,6 +38,37 @@ export default class CartIcon {
   }
 
   updatePosition() {
-    // ваш код ...
+    let cartIcon = this.elem;//document.querySelector('.cart-icon');
+    cartIcon.style.zIndex = '1000';
+    let cartTop = cartIcon.getBoundingClientRect().top;
+    let leftIndent = Math.min(
+      this.elem.closest('.container').getBoundingClientRect().right + 20,
+      document.documentElement.clientWidth - this.elem.offsetWidth - 10
+    );
+    cartIcon.style.right = '10px';
+    if(!this.isHidden(cartIcon)) {
+      if(cartTop < 0) {
+        if(cartIcon.style.position !== 'fixed') {cartIcon.style.position = 'fixed';}
+        if(window.pageYOffset > cartTop) {
+          cartIcon.style.left = leftIndent + 'px';
+        }
+      } else {
+        if(window.pageYOffset > cartTop) {
+          if(cartIcon.style.position === 'fixed') {
+            cartIcon.style.left = leftIndent + 'px';
+          }
+        } else {
+          if(cartIcon.style.position === 'fixed') {// схлопывание назад
+            cartIcon.style.position = 'absolute';
+            cartIcon.style.left = '';
+          }
+        }
+      }
+    }
+  }
+
+  isHidden(elem) {
+    return !elem.offsetWidth || !elem.offsetHeight;
+
   }
 }
