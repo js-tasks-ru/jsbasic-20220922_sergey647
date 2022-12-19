@@ -35,7 +35,9 @@ export default class Modal {
     this.elem.querySelector(".modal__title").textContent = title;
   }
   setBody(body) {
-    this.elem.querySelector(".modal__body").append(body);
+    let el = this.elem.querySelector(".modal__body");
+    el.innerHTML = '';
+    el.append(body);//replaceWith
   }
   close() {
     this.elem.remove();
