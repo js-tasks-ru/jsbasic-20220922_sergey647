@@ -33,7 +33,7 @@ export default class Cart {
     this.onProductUpdate(prodObj);
   }
 
-  updateProductCount(productId, amount) {console.log(this.cartItems)
+  updateProductCount(productId, amount) {
     let prodObj;
     this.cartItems.map((itm, idx) => {
       if (itm.product.id === productId) {
@@ -155,7 +155,7 @@ export default class Cart {
     });
   }
 
-  onProductUpdate(cartItem) {console.log(cartItem);
+  onProductUpdate(cartItem) {
     this.cartIcon.update(this);
     if (this.cartItems.length === 0) {
       document.querySelector('.is-modal-open').classList.remove('is-modal-open');
